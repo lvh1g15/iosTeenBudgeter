@@ -8,24 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		442899DD1E8FD8DE00223736 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442899DC1E8FD8DE00223736 /* AppDelegate.swift */; };
-		442899DF1E8FD8DE00223736 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442899DE1E8FD8DE00223736 /* RootViewController.swift */; };
-		442899E11E8FD8DE00223736 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442899E01E8FD8DE00223736 /* DataViewController.swift */; };
-		442899E31E8FD8DE00223736 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442899E21E8FD8DE00223736 /* ModelController.swift */; };
-		442899E61E8FD8DE00223736 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 442899E41E8FD8DE00223736 /* Main.storyboard */; };
 		442899E81E8FD8DE00223736 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 442899E71E8FD8DE00223736 /* Assets.xcassets */; };
 		442899EB1E8FD8DE00223736 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 442899E91E8FD8DE00223736 /* LaunchScreen.storyboard */; };
+		442899F51E8FDFD900223736 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 442899F41E8FDFD900223736 /* GoogleService-Info.plist */; };
+		442E15921E8FE29700AAD9D7 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E15911E8FE29700AAD9D7 /* loginViewController.swift */; };
+		442E15941E8FEE3900AAD9D7 /* createaccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E15931E8FEE3900AAD9D7 /* createaccountViewController.swift */; };
+		442E15961E8FF60900AAD9D7 /* firsttabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E15951E8FF60900AAD9D7 /* firsttabViewController.swift */; };
+		442E15981E8FF62500AAD9D7 /* secondtabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E15971E8FF62500AAD9D7 /* secondtabViewController.swift */; };
+		442E159E1E90008E00AAD9D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 442E159C1E90008E00AAD9D7 /* Main.storyboard */; };
+		442E15A01E90143800AAD9D7 /* addBubbleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E159F1E90143700AAD9D7 /* addBubbleViewController.swift */; };
+		442E15A21E904A5000AAD9D7 /* fetchdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E15A11E904A5000AAD9D7 /* fetchdata.swift */; };
+		C5A6B510E17BC07A818C11E4 /* Pods_teenbudget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F56B31374276F516EF1A0 /* Pods_teenbudget.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		099D48256F8FD403FD0F7706 /* Pods-teenbudget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teenbudget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-teenbudget/Pods-teenbudget.debug.xcconfig"; sourceTree = "<group>"; };
+		183F56B31374276F516EF1A0 /* Pods_teenbudget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_teenbudget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		442899D91E8FD8DD00223736 /* teenbudget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = teenbudget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		442899DC1E8FD8DE00223736 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		442899DE1E8FD8DE00223736 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		442899E01E8FD8DE00223736 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
-		442899E21E8FD8DE00223736 /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
-		442899E51E8FD8DE00223736 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		442899E71E8FD8DE00223736 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		442899EA1E8FD8DE00223736 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		442899EC1E8FD8DE00223736 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		442899F41E8FDFD900223736 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		442E15911E8FE29700AAD9D7 /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
+		442E15931E8FEE3900AAD9D7 /* createaccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = createaccountViewController.swift; sourceTree = "<group>"; };
+		442E15951E8FF60900AAD9D7 /* firsttabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = firsttabViewController.swift; sourceTree = "<group>"; };
+		442E15971E8FF62500AAD9D7 /* secondtabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = secondtabViewController.swift; sourceTree = "<group>"; };
+		442E159D1E90008E00AAD9D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		442E159F1E90143700AAD9D7 /* addBubbleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addBubbleViewController.swift; sourceTree = "<group>"; };
+		442E15A11E904A5000AAD9D7 /* fetchdata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fetchdata.swift; sourceTree = "<group>"; };
+		C1466F9B44C78803F08EFC86 /* Pods-teenbudget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-teenbudget.release.xcconfig"; path = "Pods/Target Support Files/Pods-teenbudget/Pods-teenbudget.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +45,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5A6B510E17BC07A818C11E4 /* Pods_teenbudget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08DDBE10736C55B61DA6A5A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				183F56B31374276F516EF1A0 /* Pods_teenbudget.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		442899D01E8FD8DD00223736 = {
 			isa = PBXGroup;
 			children = (
 				442899DB1E8FD8DD00223736 /* teenbudget */,
 				442899DA1E8FD8DD00223736 /* Products */,
+				BB0E734E1695F14CE9ECE9C8 /* Pods */,
+				08DDBE10736C55B61DA6A5A3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,15 +82,28 @@
 			isa = PBXGroup;
 			children = (
 				442899DC1E8FD8DE00223736 /* AppDelegate.swift */,
-				442899DE1E8FD8DE00223736 /* RootViewController.swift */,
-				442899E01E8FD8DE00223736 /* DataViewController.swift */,
-				442899E21E8FD8DE00223736 /* ModelController.swift */,
-				442899E41E8FD8DE00223736 /* Main.storyboard */,
+				442E15911E8FE29700AAD9D7 /* loginViewController.swift */,
+				442E15931E8FEE3900AAD9D7 /* createaccountViewController.swift */,
+				442E15951E8FF60900AAD9D7 /* firsttabViewController.swift */,
+				442E15971E8FF62500AAD9D7 /* secondtabViewController.swift */,
+				442E159F1E90143700AAD9D7 /* addBubbleViewController.swift */,
+				442E15A11E904A5000AAD9D7 /* fetchdata.swift */,
 				442899E71E8FD8DE00223736 /* Assets.xcassets */,
+				442E159C1E90008E00AAD9D7 /* Main.storyboard */,
 				442899E91E8FD8DE00223736 /* LaunchScreen.storyboard */,
+				442899F41E8FDFD900223736 /* GoogleService-Info.plist */,
 				442899EC1E8FD8DE00223736 /* Info.plist */,
 			);
 			path = teenbudget;
+			sourceTree = "<group>";
+		};
+		BB0E734E1695F14CE9ECE9C8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				099D48256F8FD403FD0F7706 /* Pods-teenbudget.debug.xcconfig */,
+				C1466F9B44C78803F08EFC86 /* Pods-teenbudget.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +113,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 442899EF1E8FD8DE00223736 /* Build configuration list for PBXNativeTarget "teenbudget" */;
 			buildPhases = (
+				8B2E0B66455FC41D0F3ADB35 /* [CP] Check Pods Manifest.lock */,
 				442899D51E8FD8DD00223736 /* Sources */,
 				442899D61E8FD8DD00223736 /* Frameworks */,
 				442899D71E8FD8DD00223736 /* Resources */,
+				486B3637A1357B838CDBF8CC /* [CP] Embed Pods Frameworks */,
+				AAC166576FFD58B460D95F1F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,21 +170,73 @@
 			buildActionMask = 2147483647;
 			files = (
 				442899EB1E8FD8DE00223736 /* LaunchScreen.storyboard in Resources */,
+				442899F51E8FDFD900223736 /* GoogleService-Info.plist in Resources */,
 				442899E81E8FD8DE00223736 /* Assets.xcassets in Resources */,
-				442899E61E8FD8DE00223736 /* Main.storyboard in Resources */,
+				442E159E1E90008E00AAD9D7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		486B3637A1357B838CDBF8CC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-teenbudget/Pods-teenbudget-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B2E0B66455FC41D0F3ADB35 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AAC166576FFD58B460D95F1F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-teenbudget/Pods-teenbudget-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		442899D51E8FD8DD00223736 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				442899DF1E8FD8DE00223736 /* RootViewController.swift in Sources */,
-				442899E31E8FD8DE00223736 /* ModelController.swift in Sources */,
-				442899E11E8FD8DE00223736 /* DataViewController.swift in Sources */,
+				442E15921E8FE29700AAD9D7 /* loginViewController.swift in Sources */,
+				442E15981E8FF62500AAD9D7 /* secondtabViewController.swift in Sources */,
+				442E15961E8FF60900AAD9D7 /* firsttabViewController.swift in Sources */,
+				442E15A21E904A5000AAD9D7 /* fetchdata.swift in Sources */,
+				442E15941E8FEE3900AAD9D7 /* createaccountViewController.swift in Sources */,
+				442E15A01E90143800AAD9D7 /* addBubbleViewController.swift in Sources */,
 				442899DD1E8FD8DE00223736 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,20 +244,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		442899E41E8FD8DE00223736 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				442899E51E8FD8DE00223736 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		442899E91E8FD8DE00223736 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				442899EA1E8FD8DE00223736 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		442E159C1E90008E00AAD9D7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				442E159D1E90008E00AAD9D7 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -267,12 +358,13 @@
 		};
 		442899F01E8FD8DE00223736 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 099D48256F8FD403FD0F7706 /* Pods-teenbudget.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 527RHSJA8E;
 				INFOPLIST_FILE = teenbudget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.teenbudget.teenbudget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teenbudget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -280,12 +372,13 @@
 		};
 		442899F11E8FD8DE00223736 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1466F9B44C78803F08EFC86 /* Pods-teenbudget.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 527RHSJA8E;
 				INFOPLIST_FILE = teenbudget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.teenbudget.teenbudget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teenbudget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -310,6 +403,7 @@
 				442899F11E8FD8DE00223736 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
