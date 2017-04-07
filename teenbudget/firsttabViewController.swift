@@ -53,56 +53,29 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
             
             let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
             
-            ref.child("users").child(uid!).observe(.value, with: { (snapshot) in
-                if let result = snapshot.children.allObjects as? [FIRDataSnapshot]{
-                    print(result)
-                    for i in result {
-                        print(i)
-                        var childkey = i.key
-                        
-                    }
-                }
-            
-            })
+//            ref.child("users").child(uid!).observe(.value, with: { (snapshot) in
+//                if let result = snapshot.children.allObjects as? [FIRDataSnapshot]{
+//                    print(result)
+//                    for i in result {
+//                        print(i)
+//                        let childkey = i.key
+//                        if(childkey == String(describing: ref.childByAutoId()) ) {
+//                            for i in self.bubbly {
+//                            ref.child(childkey).setValue(["payment": ])
+//                                
+//                            }
+//                        }
+//                        
+//                    }
+//                }
+//            
+//            })
             
             
             Fetch.dispatchQueue { (bubbles) in
                 
                 self.bubbly.append(bubbles)
                 
-//                let bubble = bubbles.budget
-//                let category = bubbles.category
-//                let payment = bubbles.payment
-//                
-//                self.budget.append(bubble)
-//                self.category.append(category)
-//                self.payments.append(payment)
-                
-                
-//                let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-//                circle.center = self.view.center
-//                circle.layer.cornerRadius = 50.0
-//                circle.backgroundColor = UIColor.blue
-//                
-//                let label = UITextField(frame: CGRect(x: 30, y: 40, width: 50, height: 50))
-//                let title = UILabel(frame: CGRect(x: 20, y: 0, width: 50, height: 50))
-//                
-//                for i in self.category {
-//                    title.text = i
-//                }
-//                
-//                for i in self.payments {
-//                    label.text = i
-//                }
-//                
-//                label.textColor = .white
-//                title.textColor = .white
-//                
-//                circle.addSubview(label)
-//                circle.addSubview(title)
-//                
-//                
-//                label.delegate = self
                 
                 for i in self.bubbly {
                     print(self.bubbly.count)
@@ -118,6 +91,21 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     let label = UITextField(frame: CGRect(x: 40, y: 40, width: 50, height: 50))
                     let title = UILabel(frame: CGRect(x: 30, y: 0, width: 50, height: 50))
                     
+//                    func textFieldDidEndEditing(_ textField: UITextField) {
+//                        var alabel: String?
+////                        anotherlabel.text = "\(label.text)"
+//                        
+//                        if ((anotherlabel.text) != nil) {
+//                        text1 = anotherlabel.text
+//                        } else {
+//                        text1 = ""
+//                    }
+//                        
+//                    text
+//                        
+//                    }
+                    
+                    
                     title.text = i.category
                     label.text = i.payment
                     
@@ -131,7 +119,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     
                     label.delegate = self
-                
+                    
                 
                     let acircle = Circle.init(circle: circle, textView: label, budget: i.budget, category: i.category, payment: i.payment)
                     
@@ -141,18 +129,9 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     acircle.circle!.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
                     
                 }
-//                
-//                for i in circles {
-//                    self.view.addSubview(i.circle!)
-//                    i.circle!.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
-//                    
-//                }
                 
             }
-            
-            
-            
-            
+
         } else {
             self.performSegue(withIdentifier: "mainToLogin", sender: self)
         }
@@ -162,20 +141,8 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         return false
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-    {
-        // text hasn't changed yet, you have to compute the text AFTER the edit yourself
-        let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
-        
-        
-        
-        // do whatever you need with this updated string (your code)
-        
-        
-        // always return true so that changes propagate
-        return true
-    }
+
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

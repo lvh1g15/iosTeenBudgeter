@@ -55,7 +55,6 @@ class Fetch {
                             let bubbles = bubble(budget: budget, category: category, payment: payment)
                             print(bubbles)
                             
-                            
                             DispatchQueue.main.async {
                                 closure(bubbles)
                             }
@@ -65,6 +64,7 @@ class Fetch {
                     }
                     
                 }
+            
                 
             })
             

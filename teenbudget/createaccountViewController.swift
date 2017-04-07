@@ -37,8 +37,6 @@ class createaccountViewController: UIViewController {
                     let values = ["displayName": self.name.text]
                     ref.updateChildValues(values)
                     
-                    
-                    
                 } else {
                     
                     let alertController = UIAlertController(title: "Oops", message: error?.localizedDescription, preferredStyle: .alert)
