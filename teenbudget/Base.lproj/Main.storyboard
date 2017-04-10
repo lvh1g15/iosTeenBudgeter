@@ -42,7 +42,6 @@
                                 </state>
                                 <connections>
                                     <action selector="loginButt:" destination="aal-MG-jfu" eventType="touchUpInside" id="MWC-dm-fye"/>
-                                    <segue destination="cYe-aN-0XW" kind="presentation" identifier="loginToMain" id="yUh-ga-Ciu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ids-5w-OTc">
@@ -74,6 +73,7 @@
                     <connections>
                         <outlet property="email" destination="KlC-nO-5o8" id="kWo-n8-jAi"/>
                         <outlet property="password" destination="PFx-9x-CTV" id="SBO-q4-6rR"/>
+                        <segue destination="cYe-aN-0XW" kind="presentation" identifier="loginToMain" id="Rhv-eI-XFg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVI-q6-kHV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -387,8 +387,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Rhv-eI-XFg"/>
         <segue reference="h6r-kv-xOi"/>
-        <segue reference="yUh-ga-Ciu"/>
         <segue reference="RdN-Ry-nXa"/>
     </inferredMetricsTieBreakers>
 </document>
