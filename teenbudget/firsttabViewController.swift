@@ -11,14 +11,25 @@ import FirebaseAuth
 import Firebase
 import FirebaseDatabase
 
-class Circle {
+func ==(lhs: Circle, rhs: Circle) -> Bool {
+    return lhs.budget == rhs.budget
+    
+    //conforming to equatable
+    
+}
+
+class Circle: Hashable, Equatable {
     var circle: UIView?
     var textView: UITextField?
     var budget: Double?
     var category: String?
     var payment: String?
+    
+    var hashValue: Int{
+        return Int(self.budget!)
+    }
 
-        
+    
     init(circle: UIView, textView: UITextField, budget: Double, category: String, payment: String) {
         self.circle = circle
         self.textView = textView
@@ -30,13 +41,13 @@ class Circle {
 }
 
 var initialisingPayment: String! = "\(0)"
+var bubbly: [Bubble] = []
+var circles: [Circle] = []
 
 class firsttabViewController: UIViewController, UITextFieldDelegate {
     
     var ref: FIRDatabaseReference?
     var refhandle: UInt = 0
-    var bubbly: [bubble] = []
-    
     
     var colorarray: [UIColor] = [.blue, .green, .red, .black]
     
@@ -49,9 +60,9 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
         if FIRAuth.auth()?.currentUser != nil {
         
             
-            let uid = FIRAuth.auth()?.currentUser?.uid
-            
-            let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
+//            let uid = FIRAuth.auth()?.currentUser?.uid
+//            
+//            let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
             
 //            ref.child("users").child(uid!).observe(.value, with: { (snapshot) in
 //                if let result = snapshot.children.allObjects as? [FIRDataSnapshot]{
@@ -74,11 +85,19 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
             
             Fetch.dispatchQueue { (bubbles) in
                 
-                self.bubbly.append(bubbles)
                 
+                bubbly.append(bubbles)
+                print(bubbles)
                 
-                for i in self.bubbly {
-                    print(self.bubbly.count)
+                let newArray = self.uniqueElementsFrom(array: bubbly)
+                print(newArray)
+//                
+//                let newArray = Array(Set(bubbly.filter({ (i: Int) in bubbly.filter({ $0 == i }).count > 1})))
+//                print(newArray)
+                
+                for i in newArray {
+                    
+                    
                     
                     let z: Double = 0.0
                     let x: Double = 50.0
@@ -109,8 +128,6 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     title.text = i.category
                     label.text = i.payment
                     
-                    
-                    
                     label.textColor = .white
                     title.textColor = .white
                     
@@ -119,15 +136,17 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     
                     label.delegate = self
-                    
                 
                     let acircle = Circle.init(circle: circle, textView: label, budget: i.budget, category: i.category, payment: i.payment)
+                    circles.append(acircle)
+                    let circleArray = self.uniqueCircle(array: circles)
                     
-                    print(acircle)
                     
-                    self.view.addSubview(acircle.circle!)
-                    acircle.circle!.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
-                    
+                    for i in circleArray {
+                        
+                    self.view.addSubview(i.circle!)
+                    i.circle!.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
+                    }
                 }
                 
             }
@@ -147,6 +166,30 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func uniqueElementsFrom(array: [Bubble]) -> [Bubble] {
+        var set = Set<Bubble>()
+        let result = array.filter {
+            guard !set.contains($0) else {
+                return false
+            }
+            set.insert($0)
+            return true
+        }
+        return result
+    }
+    
+    func uniqueCircle(array: [Circle]) -> [Circle] {
+        var set = Set<Circle>()
+        let result = array.filter {
+            guard !set.contains($0) else {
+                return false
+            }
+            set.insert($0)
+            return true
+        }
+        return result
     }
 
     

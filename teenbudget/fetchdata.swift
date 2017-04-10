@@ -10,11 +10,22 @@ import Foundation
 import Firebase
 import FirebaseAuth
 
-class bubble {
+func ==(lhs: Bubble, rhs: Bubble) -> Bool {
+    return lhs.budget == rhs.budget
+    
+    //conforming to equatable
+    
+}
+
+class Bubble: Hashable, Equatable {
     
     var budget: Double
     var category: String
     var payment: String
+    // conforming to hashable
+    var hashValue: Int{
+        return Int(self.budget)
+    }
     
     init(budget: Double, category: String, payment: String) {
         self.budget = budget
@@ -29,7 +40,7 @@ class Fetch {
     static var ref: FIRDatabaseReference?
     static var refhandle: UInt = 0
     
-    class func dispatchQueue(closure: @escaping (bubble) -> Void) {
+    class func dispatchQueue(closure: @escaping (Bubble) -> Void) {
         
         let bgQueue = DispatchQueue(label: "bg", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         
@@ -42,21 +53,18 @@ class Fetch {
             
             self.refhandle = postRef.observe(FIRDataEventType.value, with: { (snapshot) in
                 let bubbleDict = snapshot.value as? [String: AnyObject] ?? [:]
-                print(bubbleDict)
                 for (_, value) in bubbleDict {
                     
-                    print(value)
                     if let values = value as? [String: String]
                     {
-                        
-                        print(values)
+
                         if let budget = Double(values["budget"]!), let category = values["category"], let payment = values["payment"] {
                             
-                            let bubbles = bubble(budget: budget, category: category, payment: payment)
-                            print(bubbles)
+                            let bubbles = Bubble(budget: budget, category: category, payment: payment)
                             
                             DispatchQueue.main.async {
                                 closure(bubbles)
+                                print(bubbles)
                             }
                             
                         }
