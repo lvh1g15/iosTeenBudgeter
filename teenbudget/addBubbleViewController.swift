@@ -68,32 +68,6 @@ class addBubbleViewController: UIViewController, UITextFieldDelegate {
                 
             }
             
-            
-//            let postRef = FIRDatabase.database().reference().child("users").child(uid!)
-//            
-//            self.refhandle = postRef.observe(FIRDataEventType.value, with: { (snapshot) in
-//                let bubbleDict = snapshot.value as? [String: AnyObject] ?? [:]
-//                for (_, value) in bubbleDict {
-//                    
-//                    if let values = value as? [String: String]
-//                    {
-//                        
-//                        if let budget = Double(values["budget"]!), let category = values["category"], let payment = values["payment"] {
-//                            
-//                            let bubbles = Bubble(budget: budget, category: category, payment: payment)
-//                            globalBubble.append(bubbles)
-//                            
-//                        }
-//                        
-//                    }
-//                    
-//                }
-//                
-//                
-//            })
-//            let lastvalueInGlobal = globalBubble.last
-            
-            
             dismiss(animated: true, completion: nil)
         
     }
