@@ -122,8 +122,6 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     let uid = FIRAuth.auth()?.currentUser?.uid
                     
-                    //            let postRef = FIRDatabase.database().reference().child("users").child(uid!).child("displayName")
-                    
                     let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
                     
                     ref.child("users").child(uid!).child(category).updateChildValues(["payment": changedPayment!])
@@ -131,14 +129,10 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     dismiss(animated: true, completion: nil)
                     
                 }
-
-                
-                print(i.category!)
-                
             }
         }
         return false
-}
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
