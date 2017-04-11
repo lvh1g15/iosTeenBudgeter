@@ -22,7 +22,7 @@ class Circle: Hashable, Equatable {
     var circle: UIView?
     var textView: UITextField?
     var budget: Double?
-    var category: String?
+    var category: UILabel?
     var payment: String?
     
     var hashValue: Int{
@@ -30,7 +30,7 @@ class Circle: Hashable, Equatable {
     }
 
     
-    init(circle: UIView, textView: UITextField, budget: Double, category: String, payment: String) {
+    init(circle: UIView, textView: UITextField, budget: Double, category: UILabel, payment: String) {
         self.circle = circle
         self.textView = textView
         self.budget = budget
@@ -55,49 +55,19 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+    
         if FIRAuth.auth()?.currentUser != nil {
         
-            
-//            let uid = FIRAuth.auth()?.currentUser?.uid
-//            
-//            let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
-            
-//            ref.child("users").child(uid!).observe(.value, with: { (snapshot) in
-//                if let result = snapshot.children.allObjects as? [FIRDataSnapshot]{
-//                    print(result)
-//                    for i in result {
-//                        print(i)
-//                        let childkey = i.key
-//                        if(childkey == String(describing: ref.childByAutoId()) ) {
-//                            for i in self.bubbly {
-//                            ref.child(childkey).setValue(["payment": ])
-//                                
-//                            }
-//                        }
-//                        
-//                    }
-//                }
-//            
-//            })
-            
-            
             Fetch.dispatchQueue { (bubbles) in
                 
                 
                 bubbly.append(bubbles)
                 print(bubbles)
                 
+                
                 let newArray = self.uniqueElementsFrom(array: bubbly)
-                print(newArray)
-//                
-//                let newArray = Array(Set(bubbly.filter({ (i: Int) in bubbly.filter({ $0 == i }).count > 1})))
-//                print(newArray)
                 
                 for i in newArray {
-                    
-                    
                     
                     let z: Double = 0.0
                     let x: Double = 50.0
@@ -109,21 +79,6 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     let label = UITextField(frame: CGRect(x: 40, y: 40, width: 50, height: 50))
                     let title = UILabel(frame: CGRect(x: 30, y: 0, width: 50, height: 50))
-                    
-//                    func textFieldDidEndEditing(_ textField: UITextField) {
-//                        var alabel: String?
-////                        anotherlabel.text = "\(label.text)"
-//                        
-//                        if ((anotherlabel.text) != nil) {
-//                        text1 = anotherlabel.text
-//                        } else {
-//                        text1 = ""
-//                    }
-//                        
-//                    text
-//                        
-//                    }
-                    
                     
                     title.text = i.category
                     label.text = i.payment
@@ -137,11 +92,10 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     label.delegate = self
                 
-                    let acircle = Circle.init(circle: circle, textView: label, budget: i.budget, category: i.category, payment: i.payment)
+                    let acircle = Circle.init(circle: circle, textView: label, budget: i.budget, category: title, payment: i.payment)
                     circles.append(acircle)
                     let circleArray = self.uniqueCircle(array: circles)
-                    
-                    
+
                     for i in circleArray {
                         
                     self.view.addSubview(i.circle!)
@@ -158,10 +112,33 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
+        for i in circles {
+            if textField == i.textView {
+                findActiveTextField(subviews: [i.circle!], textField: &i.textView)
+                let changedPayment = textField.text
+                let category = i.category!.text!
+                
+                if textField.text != "" {
+                    
+                    let uid = FIRAuth.auth()?.currentUser?.uid
+                    
+                    //            let postRef = FIRDatabase.database().reference().child("users").child(uid!).child("displayName")
+                    
+                    let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
+                    
+                    ref.child("users").child(uid!).child(category).updateChildValues(["payment": changedPayment!])
+                    
+                    dismiss(animated: true, completion: nil)
+                    
+                }
+
+                
+                print(i.category!)
+                
+            }
+        }
         return false
-    }
-
-
+}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -191,9 +168,23 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
         }
         return result
     }
+    
+    func findActiveTextField(subviews : [UIView], textField : inout UITextField?) {
 
-    
-    
+        guard textField == nil else { return }
+        
+        for view in subviews {
+            if let tf = view as? UITextField, view.isFirstResponder {
+                textField = tf
+                break
+            }
+            else if !view.subviews.isEmpty {
+                findActiveTextField (subviews: view.subviews, textField: &textField)
+                print(view.subviews)
+            }
+        }
+    }
+
     func dragCircle(gesture: UIPanGestureRecognizer) {
         let target = gesture.view!
         

@@ -64,7 +64,6 @@ class Fetch {
                             
                             DispatchQueue.main.async {
                                 closure(bubbles)
-                                print(bubbles)
                             }
                             
                         }

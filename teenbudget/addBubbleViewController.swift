@@ -54,7 +54,7 @@ class addBubbleViewController: UIViewController, UITextFieldDelegate {
 //            let postRef = FIRDatabase.database().reference().child("users").child(uid!).child("displayName")
             
                 
-            let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/").child("users").child(uid!).childByAutoId()
+            let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/").child("users").child(uid!).child(self.category.text!)
             
             if let category = self.category.text, let budget = self.budget.text, let payment = initialisingPayment {
                 
@@ -62,8 +62,6 @@ class addBubbleViewController: UIViewController, UITextFieldDelegate {
                 
                 ref.setValue(values)
                 
-                
-            
             } else {
                 
             }
