@@ -174,7 +174,6 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
             }
             else if !view.subviews.isEmpty {
                 findActiveTextField (subviews: view.subviews, textField: &textField)
-                print(view.subviews)
             }
         }
     }
