@@ -35,6 +35,7 @@ var labelHeight: CGFloat = 50
 
 let title = UILabel(frame: CGRect(x: (circle.center.x-titleWidth/2), y: 0, width: titleWidth, height: titleHeight))
 let label = UITextField(frame: CGRect(x: (circle.center.x-labelWidth/2), y: circle.center.y, width: 50, height: 50))
+print(circle.center.x)
 label.backgroundColor = UIColor.green
 title.backgroundColor = UIColor.red
 circle.addSubview(label)

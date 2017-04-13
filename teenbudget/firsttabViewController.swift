@@ -69,33 +69,43 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     var z: Double
                     var x: Double
+                    var fontsize: Double
+                    let titleWidth: CGFloat = 50
+                    let titleHeight: CGFloat = 50
+                    let labelWidth: CGFloat = 50
+                    let labelHeight: CGFloat = 50
                     
                     let bubbleMax: Double = 100
                     
-                    z = Double(i.payment)!/Double(i.budget)*bubbleMax
+                    z = Double(i.payment)!/Double(i.budget)*bubbleMax + 20.0
+                    fontsize = z/10.0
                     
-                    let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 60.0+z, height: 60.0+z))
-                    circle.center = self.view.center
+                    let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0+z, height: 50.0+z))
                     
-                    x = (73*(z+60))/145
+                    x = (73*(z+60))/160
                     circle.layer.cornerRadius = CGFloat(x)
                     
                     
                     circle.backgroundColor = UIColor.blue
                     
-                    let label = UITextField(frame: CGRect(x: 40, y: 40, width: 50, height: 50))
-                    let title = UILabel(frame: CGRect(x: 40, y: 0, width: 50, height: 50))
+                    let label = UITextField(frame: CGRect(x: circle.center.x-titleWidth/2, y: circle.center.y, width: circle.center.x+30, height: labelHeight))
+                    let title = UILabel(frame: CGRect(x: circle.center.x-titleWidth/2, y: circle.center.y/3, width: circle.center.x+30, height: titleHeight))
+                    
+                    print(circle.center.x)
                     
                     title.text = i.category
-                    title.textAlignment = .center
+                    title.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
+//                    title.sizeThatFits(CGSize(dictionaryRepresentation: z as! CFDictionary)!)
                     label.text = i.payment
-                    label.textAlignment = .center
+                    label.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
                     
                     label.textColor = .white
                     title.textColor = .white
                     
                     circle.addSubview(label)
                     circle.addSubview(title)
+                    
+                    circle.center = self.view.center
                     
                     
                     label.delegate = self
