@@ -72,7 +72,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     let bubbleMax: Double = 100
                     
-                    z = (Double(i.payment)!/Double(i.budget))*bubbleMax
+                    z = Double(i.payment)!/Double(i.budget)*bubbleMax
                     
                     let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 60.0+z, height: 60.0+z))
                     circle.center = self.view.center
@@ -84,7 +84,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     circle.backgroundColor = UIColor.blue
                     
                     let label = UITextField(frame: CGRect(x: 40, y: 40, width: 50, height: 50))
-                    let title = UILabel(frame: CGRect(x: 30, y: 0, width: 50, height: 50))
+                    let title = UILabel(frame: CGRect(x: 40, y: 0, width: 50, height: 50))
                     
                     title.text = i.category
                     title.textAlignment = .center

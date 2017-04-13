@@ -16,17 +16,20 @@ class Circle {
     
 }
 
+var array: [Double] = [100, 90, 130, 80]
 
 var z: Double = 100.0
 var x: Double = 73*(z+60)/145
+for i in array {
 
-let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 60.0+z, height: 60.0+z))
+let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 60.0+i, height: 60.0+i))
+    
+var x: Double = 73*(i+60)/145
 circle.layer.cornerRadius = CGFloat(x)
 circle.backgroundColor = UIColor.blue
 
 var titleWidth: CGFloat = 50
 var titleHeight: CGFloat = 50
-
 var labelWidth: CGFloat = 50
 var labelHeight: CGFloat = 50
 
@@ -37,18 +40,6 @@ title.backgroundColor = UIColor.red
 circle.addSubview(label)
 circle.addSubview(title)
 circle.translatesAutoresizingMaskIntoConstraints = false
-
-circle.center
-
-
-
-//let horizontalConstraint = title.centerXAnchor.constraint(equalTo: circle.centerXAnchor)
-//let horizontalConstraint2 = label.centerXAnchor.constraint(equalTo: circle.centerXAnchor)
-//
-//let verticalConstraint = title.centerYAnchor.constraint(equalTo: circle.centerYAnchor)
-//let verticalConstraint2 = label.centerYAnchor.constraint(equalTo: circle.centerYAnchor)
-//
-//NSLayoutConstraint.activate([horizontalConstraint, horizontalConstraint2, verticalConstraint, verticalConstraint2])
 
 label.textColor = .white
 title.textColor = .white
@@ -61,6 +52,7 @@ label.centerYAnchor.constraint(equalTo: circle.centerYAnchor).isActive = true
 
 
 let acircle = Circle(circle: circle, textView: label, category: title)
+}
 
 
 
