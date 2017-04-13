@@ -4,11 +4,6 @@ import UIKit
 var digits = [1,4,10,15,26,25]
 //let even = digits.filter { for i in digits { $0 == i}}
 
-
-
-
-
-
 var numbers: [Int] = [1,2,2,3,4,5,5,5,5,7]
 func uniqueElementsFrom(array: [Int]) -> [Int] {
     var set = Set<Int>()

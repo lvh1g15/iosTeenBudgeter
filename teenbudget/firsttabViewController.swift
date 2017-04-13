@@ -69,12 +69,18 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                 
                 for i in newArray {
                     
-                    let z: Double = 0.0
-                    let x: Double = 50.0
+                    var z: Double
+                    var x: Double
                     
-                    let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0+z, height: 100.0+z))
+                    z = Double(i.payment)!
+                    
+                    let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 60.0+z, height: 60.0+z))
                     circle.center = self.view.center
+                    
+                    x = (73*(z+60))/145
                     circle.layer.cornerRadius = CGFloat(x)
+                    
+                    
                     circle.backgroundColor = UIColor.blue
                     
                     let label = UITextField(frame: CGRect(x: 40, y: 40, width: 50, height: 50))
@@ -112,6 +118,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
+        
         for i in circles {
             if textField == i.textView {
                 findActiveTextField(subviews: [i.circle!], textField: &i.textView)
