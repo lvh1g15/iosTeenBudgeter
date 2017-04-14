@@ -48,6 +48,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
     
     var ref: FIRDatabaseReference?
     var refhandle: UInt = 0
+    var animator: UIDynamicAnimator?
     
     var circleCenter: CGPoint!
 
@@ -69,6 +70,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     var z: Double
                     var x: Double
+                    var animator: UIDynamicAnimator?
                     var fontsize: Double
                     let titleWidth: CGFloat = 50
                     let titleHeight: CGFloat = 50
@@ -88,16 +90,23 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     circle.backgroundColor = UIColor.blue
                     
-                    let label = UITextField(frame: CGRect(x: circle.center.x-titleWidth/2, y: circle.center.y, width: circle.center.x+30, height: labelHeight))
-                    let title = UILabel(frame: CGRect(x: circle.center.x-titleWidth/2, y: circle.center.y/3, width: circle.center.x+30, height: titleHeight))
+                    let label = UITextField(frame: CGRect(x: circle.center.x-circle.bounds.maxX/2, y: circle.center.y, width: circle.bounds.maxX, height: circle.bounds.maxY/2))
                     
-                    print(circle.center.x)
+                    let title = UILabel(frame: CGRect(x: circle.center.x-circle.bounds.maxX/2, y: 0, width: circle.bounds.maxX, height: circle.bounds.maxY/2))
+                    
+                    print(circle.bounds.maxX)
                     
                     title.text = i.category
-                    title.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
-//                    title.sizeThatFits(CGSize(dictionaryRepresentation: z as! CFDictionary)!)
+                    title.textAlignment = .center
                     label.text = i.payment
-                    label.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
+                    label.textAlignment = .center
+                    if z > 40 {
+                        title.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
+                        label.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
+                    } else {
+                        title.font = UIFont(name: "HelveticaNeue-BoldOblique", size: CGFloat(Double(20)))
+                        label.font = UIFont(name: "HelveticaNeue-BoldOblique", size: CGFloat(Double(20)))
+                    }
                     
                     label.textColor = .white
                     title.textColor = .white
@@ -117,7 +126,21 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     for i in circleArray {
                         
                     self.view.addSubview(i.circle!)
+                        
+                    animator = UIDynamicAnimator(referenceView: self.view)
+                    
+                    let collision = UICollisionBehavior(items: [i.circle!])
+                    collision.translatesReferenceBoundsIntoBoundary = true
+                    let behavior = UIDynamicItemBehavior(items: [i.circle!])
+                    behavior.elasticity = 0.5
+                    let gravity = UIGravityBehavior(items: [i.circle!])
+                        
+                    animator?.addBehavior(gravity)
+                    animator?.addBehavior(behavior)
+                    animator?.addBehavior(collision)
+                        
                     i.circle!.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
+                    
                     }
                 }
                 
