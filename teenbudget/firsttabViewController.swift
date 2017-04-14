@@ -75,7 +75,6 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     let bubbleMax: Double = 100
                     
                     z = Double(i.payment)!/Double(i.budget)*bubbleMax + 20.0
-                    fontsize = z/10.0
                     
                     let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0+z, height: 50.0+z))
                     
@@ -95,6 +94,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     title.textAlignment = .center
                     label.text = i.payment
                     label.textAlignment = .center
+                    
                     if z > 40 {
                         title.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
                         label.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
@@ -137,9 +137,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     }
                 }
-                
             }
-
         } else {
             self.performSegue(withIdentifier: "mainToLogin", sender: self)
         }
@@ -155,6 +153,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
             if textField == i.textView {
                 findActiveTextField(subviews: [i.circle!], textField: &i.textView)
                 let changedPayment = textField.text
+                let nowhitespaces = changedPayment?.trimmingCharacters(in: .whitespaces)
                 let category = i.category!.text!
                 
                 viewPosition = (i.circle?.frame.origin)!
@@ -168,9 +167,11 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
                     
-                    ref.child("users").child(uid!).child(category).updateChildValues(["payment": changedPayment!])
+                    ref.child("users").child(uid!).child(category).updateChildValues(["payment": nowhitespaces!])
                     
+
                     dismiss(animated: true, completion: nil)
+  
                     
                 }
             }
