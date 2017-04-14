@@ -71,11 +71,6 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     var z: Double
                     var x: Double
                     var animator: UIDynamicAnimator?
-                    var fontsize: Double
-                    let titleWidth: CGFloat = 50
-                    let titleHeight: CGFloat = 50
-                    let labelWidth: CGFloat = 50
-                    let labelHeight: CGFloat = 50
                     
                     let bubbleMax: Double = 100
                     
@@ -116,7 +111,6 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     circle.center = self.view.center
                     
-                    
                     label.delegate = self
                 
                     let acircle = Circle.init(circle: circle, textView: label, budget: i.budget, category: title, payment: i.payment)
@@ -153,12 +147,20 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
+        var posx: CGFloat
+        var y: CGFloat
+        var viewPosition: CGPoint
         
         for i in circles {
             if textField == i.textView {
                 findActiveTextField(subviews: [i.circle!], textField: &i.textView)
                 let changedPayment = textField.text
                 let category = i.category!.text!
+                
+                viewPosition = (i.circle?.frame.origin)!
+                y = viewPosition.y
+                posx = viewPosition.x
+                
                 
                 if textField.text != "" {
                     
