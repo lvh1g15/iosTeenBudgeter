@@ -83,6 +83,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     
                     circle.backgroundColor = UIColor.blue
+                    circle.tag = Int(i.budget)
                     
                     let label = UITextField(frame: CGRect(x: circle.center.x-circle.bounds.maxX/2, y: circle.center.y, width: circle.bounds.maxX, height: circle.bounds.maxY/2))
                     
@@ -119,21 +120,21 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
 
                     for i in circleArray {
                         
-                    self.view.addSubview(i.circle!)
+                        self.view.addSubview(i.circle!)
+                            
+                        animator = UIDynamicAnimator(referenceView: self.view)
                         
-                    animator = UIDynamicAnimator(referenceView: self.view)
-                    
-                    let collision = UICollisionBehavior(items: [i.circle!])
-                    collision.translatesReferenceBoundsIntoBoundary = true
-                    let behavior = UIDynamicItemBehavior(items: [i.circle!])
-                    behavior.elasticity = 0.5
-                    let gravity = UIGravityBehavior(items: [i.circle!])
-                        
-                    animator?.addBehavior(gravity)
-                    animator?.addBehavior(behavior)
-                    animator?.addBehavior(collision)
-                        
-                    i.circle!.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
+                        let collision = UICollisionBehavior(items: [i.circle!])
+                        collision.translatesReferenceBoundsIntoBoundary = true
+                        let behavior = UIDynamicItemBehavior(items: [i.circle!])
+                        behavior.elasticity = 0.5
+                        let gravity = UIGravityBehavior(items: [i.circle!])
+                            
+                        animator?.addBehavior(gravity)
+                        animator?.addBehavior(behavior)
+                        animator?.addBehavior(collision)
+                            
+                        i.circle!.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
                     
                     }
                 }
@@ -144,35 +145,45 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        
         self.view.endEditing(true)
         var posx: CGFloat
         var y: CGFloat
+        var newz: Double
         var viewPosition: CGPoint
         
         for i in circles {
+            removeBubbleView(tag: (Int(i.budget!)))
+            
             if textField == i.textView {
+                
                 findActiveTextField(subviews: [i.circle!], textField: &i.textView)
                 let changedPayment = textField.text
                 let nowhitespaces = changedPayment?.trimmingCharacters(in: .whitespaces)
                 let category = i.category!.text!
+                let budget = Double(i.budget!)
+                newz = Double(nowhitespaces!)!
                 
                 viewPosition = (i.circle?.frame.origin)!
                 y = viewPosition.y
                 posx = viewPosition.x
                 
-                
                 if textField.text != "" {
+                    
                     
                     let uid = FIRAuth.auth()?.currentUser?.uid
                     
                     let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
                     
                     ref.child("users").child(uid!).child(category).updateChildValues(["payment": nowhitespaces!])
-                    
+//                    
+//                    removeBubbleView(tag: (Int(i.budget!)))
 
                     dismiss(animated: true, completion: nil)
-  
                     
+                    bubbleSetup(newpayment: newz, budget: budget, yPos: y, xPos: posx, category: category)
+  
                 }
             }
         }
@@ -182,6 +193,53 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func bubbleSetup(newpayment: Double, budget: Double, yPos: CGFloat, xPos: CGFloat, category: String) {
+        var x: Double
+        let bubbleMax: Double = 100
+        var z: Double
+        
+        z = Double(newpayment)/Double(budget)*bubbleMax + 20.0
+        
+        let circle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0+z, height: 50.0+z))
+        
+        x = (73*(z+60))/160
+        circle.layer.cornerRadius = CGFloat(x)
+        
+        
+        circle.backgroundColor = UIColor.blue
+        
+        let label = UITextField(frame: CGRect(x: circle.center.x-circle.bounds.maxX/2, y: circle.center.y, width: circle.bounds.maxX, height: circle.bounds.maxY/2))
+        
+        let title = UILabel(frame: CGRect(x: circle.center.x-circle.bounds.maxX/2, y: 0, width: circle.bounds.maxX, height: circle.bounds.maxY/2))
+        
+        print(circle.bounds.maxX)
+        
+        title.text = category
+        title.textAlignment = .center
+        label.text = String(newpayment)
+        label.textAlignment = .center
+        
+        if z > 40 {
+            title.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
+            label.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
+        } else {
+            title.font = UIFont(name: "HelveticaNeue-BoldOblique", size: CGFloat(Double(20)))
+            label.font = UIFont(name: "HelveticaNeue-BoldOblique", size: CGFloat(Double(20)))
+        }
+        
+        label.textColor = .white
+        title.textColor = .white
+        
+        circle.addSubview(label)
+        circle.addSubview(title)
+        
+        self.view.addSubview(circle)
+        circle.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
+        
+        circle.center = CGPoint(x: CGFloat(xPos), y: CGFloat(yPos))
+        
     }
     
     func uniqueElementsFrom(array: [Bubble]) -> [Bubble] {
@@ -194,6 +252,14 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
             return true
         }
         return result
+    }
+    
+    func removeBubbleView(tag: Int) {
+        if let viewtag = self.view.viewWithTag(tag) {
+            viewtag.removeFromSuperview()
+        } else {
+            print("oh no")
+        }
     }
     
     func uniqueCircle(array: [Circle]) -> [Circle] {

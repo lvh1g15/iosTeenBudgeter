@@ -21,7 +21,8 @@ let newArray2 = uniqueElementsFrom(array: numbers)
 print(newArray2)
 
 
-let string = "10    "
+let string = "   10   "
+
 let newString = string.trimmingCharacters(in: .whitespaces)
 let doublex = Double(newString)
 print(doublex)
