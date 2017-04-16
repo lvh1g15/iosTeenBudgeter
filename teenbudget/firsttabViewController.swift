@@ -83,9 +83,11 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     
                     circle.backgroundColor = UIColor.blue
-                    circle.tag = Int(i.budget)
+                    circle.tag = Int(i.payment)!
                     
                     let label = UITextField(frame: CGRect(x: circle.center.x-circle.bounds.maxX/2, y: circle.center.y, width: circle.bounds.maxX, height: circle.bounds.maxY/2))
+                    
+//                    label.keyboardType = .numberPad
                     
                     let title = UILabel(frame: CGRect(x: circle.center.x-circle.bounds.maxX/2, y: 0, width: circle.bounds.maxX, height: circle.bounds.maxY/2))
                     
@@ -154,10 +156,15 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
         var viewPosition: CGPoint
         
         for i in circles {
-            removeBubbleView(tag: (Int(i.budget!)))
+//            let oldpayment = i.payment!
+//            removeBubbleView(tag: Int(oldpayment)!)
+            
+            
+            //this if statement is causing the problems. When the value stays the same it does the right thing and deletes the subview and places a new one but also deletes every other subview as well...
+            // when the value is different it will add the newsubview with the changed value but keep the old one as well.
             
             if textField == i.textView {
-                
+
                 findActiveTextField(subviews: [i.circle!], textField: &i.textView)
                 let changedPayment = textField.text
                 let nowhitespaces = changedPayment?.trimmingCharacters(in: .whitespaces)
@@ -182,9 +189,10 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
 
                     dismiss(animated: true, completion: nil)
                     
-                    bubbleSetup(newpayment: newz, budget: budget, yPos: y, xPos: posx, category: category)
+                    bubbleSetup(newpayment: Int(newz), budget: budget, yPos: y, xPos: posx, category: category)
   
                 }
+                
             }
         }
         return false
@@ -195,7 +203,40 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func bubbleSetup(newpayment: Double, budget: Double, yPos: CGFloat, xPos: CGFloat, category: String) {
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        var posx: CGFloat
+//        var y: CGFloat
+//        var newz: Double
+//        var viewPosition: CGPoint
+//        
+//        for i in circles {
+//            if textField != i.textView {
+//                findActiveTextField(subviews: [i.circle!], textField: &i.textView)
+//                removeBubbleView(tag: Int(i.payment!)!)
+//                let changedPayment = textField.text
+//                let nowhitespaces = changedPayment?.trimmingCharacters(in: .whitespaces)
+//                let category = i.category!.text!
+//                let budget = Double(i.budget!)
+//                newz = Double(nowhitespaces!)!
+//                
+//                viewPosition = (i.circle?.frame.origin)!
+//                y = viewPosition.y
+//                posx = viewPosition.x
+//                
+//                let uid = FIRAuth.auth()?.currentUser?.uid
+//
+//                let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
+//
+//                ref.child("users").child(uid!).child(category).updateChildValues(["payment": nowhitespaces!])
+//
+//
+//                bubbleSetup(newpayment: Int(newz), budget: budget, yPos: y, xPos: posx, category: category)
+//            
+//            }
+//        }
+//    }
+    
+    func bubbleSetup(newpayment: Int, budget: Double, yPos: CGFloat, xPos: CGFloat, category: String) {
         var x: Double
         let bubbleMax: Double = 100
         var z: Double
@@ -234,6 +275,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
         
         circle.addSubview(label)
         circle.addSubview(title)
+        
         
         self.view.addSubview(circle)
         circle.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
