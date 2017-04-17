@@ -126,16 +126,16 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                             
                         animator = UIDynamicAnimator(referenceView: self.view)
                         
-                        let collision = UICollisionBehavior(items: [i.circle!])
-                        collision.translatesReferenceBoundsIntoBoundary = true
-                        let behavior = UIDynamicItemBehavior(items: [i.circle!])
-                        behavior.elasticity = 0.5
-                        let gravity = UIGravityBehavior(items: [i.circle!])
-                            
-                        animator?.addBehavior(gravity)
-                        animator?.addBehavior(behavior)
-                        animator?.addBehavior(collision)
-                            
+//                        let collision = UICollisionBehavior(items: [i.circle!])
+//                        collision.translatesReferenceBoundsIntoBoundary = true
+//                        let behavior = UIDynamicItemBehavior(items: [i.circle!])
+//                        behavior.elasticity = 0.5
+//                        let gravity = UIGravityBehavior(items: [i.circle!])
+//                            
+//                        animator?.addBehavior(gravity)
+//                        animator?.addBehavior(behavior)
+//                        animator?.addBehavior(collision)
+                        
                         i.circle!.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
                     
                     }
@@ -159,13 +159,17 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
 //            let oldpayment = i.payment!
 //            removeBubbleView(tag: Int(oldpayment)!)
             
+            //if this is where the removing of the bubble worked then try do something here. Tomorrow.
             
             //this if statement is causing the problems. When the value stays the same it does the right thing and deletes the subview and places a new one but also deletes every other subview as well...
             // when the value is different it will add the newsubview with the changed value but keep the old one as well.
             
             if textField == i.textView {
+                
+                let oldpayment = i.payment!
+                removeBubbleView(tag: Int(oldpayment)!)
 
-                findActiveTextField(subviews: [i.circle!], textField: &i.textView)
+//                findActiveTextField(subviews: [i.circle!], textField: &i.textView)
                 let changedPayment = textField.text
                 let nowhitespaces = changedPayment?.trimmingCharacters(in: .whitespaces)
                 let category = i.category!.text!
