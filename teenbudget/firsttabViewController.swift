@@ -43,6 +43,7 @@ class Circle: Hashable, Equatable {
 var initialisingPayment: String! = "\(0)"
 var bubbly: [Bubble] = []
 var circles: [Circle] = []
+var updatedCircles: [Circle] = []
 
 class firsttabViewController: UIViewController, UITextFieldDelegate {
     
@@ -58,7 +59,6 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
         if FIRAuth.auth()?.currentUser != nil {
         
             Fetch.dispatchQueue { (bubbles) in
-                
                 
                 bubbly.append(bubbles)
                 print(bubbles)
@@ -83,7 +83,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     
                     circle.backgroundColor = UIColor.blue
-                    circle.tag = Int(i.payment)!
+                    circle.tag = Int(i.budget)
                     
                     let label = UITextField(frame: CGRect(x: circle.center.x-circle.bounds.maxX/2, y: circle.center.y, width: circle.bounds.maxX, height: circle.bounds.maxY/2))
                     
@@ -95,13 +95,18 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     
                     title.text = i.category
                     title.textAlignment = .center
+                    
                     label.text = i.payment
+                    label.tag = Int(i.budget) // should really be something else as others could contain the same budgets.
                     label.textAlignment = .center
                     
                     if z > 40 {
+                        
                         title.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
                         label.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
+                        
                     } else {
+                        
                         title.font = UIFont(name: "HelveticaNeue-BoldOblique", size: CGFloat(Double(20)))
                         label.font = UIFont(name: "HelveticaNeue-BoldOblique", size: CGFloat(Double(20)))
                     }
@@ -119,7 +124,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
                     let acircle = Circle.init(circle: circle, textView: label, budget: i.budget, category: title, payment: i.payment)
                     circles.append(acircle)
                     let circleArray = self.uniqueCircle(array: circles)
-
+                    
                     for i in circleArray {
                         
                         self.view.addSubview(i.circle!)
@@ -152,95 +157,98 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         var posx: CGFloat
         var y: CGFloat
+//        var x: Double
         var newz: Double
-        var viewPosition: CGPoint
+        var viewPositionofcenter: CGPoint
         
-        for i in circles {
-//            let oldpayment = i.payment!
-//            removeBubbleView(tag: Int(oldpayment)!)
-            
-            //if this is where the removing of the bubble worked then try do something here. Tomorrow.
-            
-            //this if statement is causing the problems. When the value stays the same it does the right thing and deletes the subview and places a new one but also deletes every other subview as well...
-            // when the value is different it will add the newsubview with the changed value but keep the old one as well.
-            
-            if textField == i.textView {
-                
-                let oldpayment = i.payment!
-                removeBubbleView(tag: Int(oldpayment)!)
+        for i in uniqueCircle(array: circles) {
 
-//                findActiveTextField(subviews: [i.circle!], textField: &i.textView)
+            if textField.tag == Int(i.budget!) {
+                findActiveTextField(subviews: [i.circle!], textField: &i.textView)
                 let changedPayment = textField.text
                 let nowhitespaces = changedPayment?.trimmingCharacters(in: .whitespaces)
                 let category = i.category!.text!
                 let budget = Double(i.budget!)
-                newz = Double(nowhitespaces!)!
-                
-                viewPosition = (i.circle?.frame.origin)!
-                y = viewPosition.y
-                posx = viewPosition.x
+                let bubbleMax: Double = 100
+                var z: Double
                 
                 if textField.text != "" {
                     
+                    removeBubbleView(tag: (i.circle?.tag)!) ///circle tag
                     
                     let uid = FIRAuth.auth()?.currentUser?.uid
                     
                     let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
                     
                     ref.child("users").child(uid!).child(category).updateChildValues(["payment": nowhitespaces!])
-//                    
-//                    removeBubbleView(tag: (Int(i.budget!)))
 
                     dismiss(animated: true, completion: nil)
                     
-                    bubbleSetup(newpayment: Int(newz), budget: budget, yPos: y, xPos: posx, category: category)
-  
+                    newz = Double(nowhitespaces!)!
+                    
+                    z = (newz/budget)*bubbleMax + 20.0
+                    
+                    viewPositionofcenter = (i.circle?.center)!
+                    let position = i.circle?.convert(viewPositionofcenter, to: self.view)
+                    y = (position?.y)!
+                    posx = (position?.x)!
+ 
+                    bubbleSetup(newpayment: Int(z), budget: budget, yPos: y, xPos: posx, category: category, tag: textField.tag)
+
                 }
-                
             }
         }
+        
+        //this could be done so much better
+        
+        
+        for i in uniqueCircle(array: updatedCircles) {
+            
+            if textField.tag == Int(i.budget!) {
+                findActiveTextField(subviews: [i.circle!], textField: &i.textView)
+                let changedPayment = textField.text
+                let nowhitespaces = changedPayment?.trimmingCharacters(in: .whitespaces)
+                let category = i.category!.text!
+                let budget = Double(i.budget!)
+                let bubbleMax: Double = 100
+                var z: Double
+                
+                if textField.text != "" {
+                    
+                    removeBubbleView(tag: (i.circle?.tag)!) ///circle tag
+                    
+                    let uid = FIRAuth.auth()?.currentUser?.uid
+                    
+                    let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
+                    
+                    ref.child("users").child(uid!).child(category).updateChildValues(["payment": nowhitespaces!])
+                    
+                    dismiss(animated: true, completion: nil)
+                    
+                    newz = Double(nowhitespaces!)!
+                    
+                    z = (newz/budget)*bubbleMax + 20.0
+                    
+                    viewPositionofcenter = (i.circle?.center)!
+                    let position = i.circle?.convert(viewPositionofcenter, to: self.view)
+                    y = (position?.y)!
+                    posx = (position?.x)!
+                    
+                    bubbleSetup(newpayment: Int(z), budget: budget, yPos: y, xPos: posx, category: category, tag: textField.tag)
+                    
+                }
+            }
+        }
+        
         return false
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        var posx: CGFloat
-//        var y: CGFloat
-//        var newz: Double
-//        var viewPosition: CGPoint
+//    struct RandomColour: UIColor {
+//        [.blue, .green, .red]
 //        
-//        for i in circles {
-//            if textField != i.textView {
-//                findActiveTextField(subviews: [i.circle!], textField: &i.textView)
-//                removeBubbleView(tag: Int(i.payment!)!)
-//                let changedPayment = textField.text
-//                let nowhitespaces = changedPayment?.trimmingCharacters(in: .whitespaces)
-//                let category = i.category!.text!
-//                let budget = Double(i.budget!)
-//                newz = Double(nowhitespaces!)!
-//                
-//                viewPosition = (i.circle?.frame.origin)!
-//                y = viewPosition.y
-//                posx = viewPosition.x
-//                
-//                let uid = FIRAuth.auth()?.currentUser?.uid
-//
-//                let ref = FIRDatabase.database().reference(fromURL: "https://teenbudget-75e27.firebaseio.com/")
-//
-//                ref.child("users").child(uid!).child(category).updateChildValues(["payment": nowhitespaces!])
-//
-//
-//                bubbleSetup(newpayment: Int(newz), budget: budget, yPos: y, xPos: posx, category: category)
-//            
-//            }
-//        }
 //    }
     
-    func bubbleSetup(newpayment: Int, budget: Double, yPos: CGFloat, xPos: CGFloat, category: String) {
+    func bubbleSetup(newpayment: Int, budget: Double, yPos: CGFloat, xPos: CGFloat, category: String, tag: Int) {
         var x: Double
         let bubbleMax: Double = 100
         var z: Double
@@ -265,6 +273,7 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
         title.textAlignment = .center
         label.text = String(newpayment)
         label.textAlignment = .center
+        label.tag = Int(budget)
         
         if z > 40 {
             title.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(Double(z/2)))
@@ -279,12 +288,15 @@ class firsttabViewController: UIViewController, UITextFieldDelegate {
         
         circle.addSubview(label)
         circle.addSubview(title)
+        label.delegate = self
         
+        let newcircle = Circle.init(circle: circle, textView: label, budget: budget, category: title, payment: String(newpayment))
+        updatedCircles.append(newcircle)
         
-        self.view.addSubview(circle)
-        circle.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
+        self.view.addSubview(newcircle.circle!)
+        newcircle.circle?.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.dragCircle)))
         
-        circle.center = CGPoint(x: CGFloat(xPos), y: CGFloat(yPos))
+        newcircle.circle?.center = CGPoint(x: CGFloat(xPos), y: CGFloat(yPos))
         
     }
     
